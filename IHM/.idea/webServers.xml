@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="5ad99171-23f8-47f3-a4f2-39043738806e" name="Farm" url="http://pinel-guinard.alwaysdata.net/Farm/">
+        <fileTransfer rootFolder="/home/pinel-guinard/www/Farm/" accessType="SFTP" host="ssh-pinel-guinard.alwaysdata.net" port="22" sshConfigId="f20ce858-5c16-4d78-bfde-6b23ebd51e3b" sshConfig="pinel-guinard@ssh-pinel-guinard.alwaysdata.net:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

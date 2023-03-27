@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="ssh-pinel-guinard.alwaysdata.net" id="f20ce858-5c16-4d78-bfde-6b23ebd51e3b" port="22" nameFormat="DESCRIPTIVE" username="pinel-guinard" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>
