@@ -2,9 +2,7 @@
 
 namespace data;
 
-use service\AnnonceAccessInterface;
 use service\ProductsAccessInterface;
-use service\UserAccessInterface;
 include_once "service/ProductsAccessInterface.php";
 
 use domain\User;
@@ -15,18 +13,6 @@ include_once "domain/Product.php";
 
 class apiProduct implements ProductsAccessInterface
 {
-
-    protected $dataAccess = null;
-
-    public function __construct($dataAccess)
-    {
-        $this->dataAccess = $dataAccess;
-    }
-
-    public function __destruct()
-    {
-        $this->dataAccess = null;
-    }
    public function getAllProducts(){
 
         $url = "http://localhost:8080/API_User-Product-1.0-SNAPSHOT/api/products";

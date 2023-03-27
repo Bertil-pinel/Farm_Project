@@ -2,27 +2,15 @@
 
 namespace data;
 
-use service\AnnonceAccessInterface;
-use service\UserAccessInterface;
-include_once "service/UserAccessInterface.php";
+use service\UsersAccessInterface;
+include_once "service/UsersAccessInterface.php";
 
 use domain\User;
 include_once "domain/User.php";
 
 
-class apiUser implements UserAccessInterface
+class apiUser implements UsersAccessInterface
 {
-    protected $dataAccess = null;
-
-    public function __construct($dataAccess)
-    {
-        $this->dataAccess = $dataAccess;
-    }
-
-    public function __destruct()
-    {
-        $this->dataAccess = null;
-    }
 
     public function getAllUsers(){
 
