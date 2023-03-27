@@ -41,13 +41,12 @@ public class CartService {
 
     /**
      *
-     * @param idUser
-     * @param idProduct
+     * @param idCart
      * @return
      */
-    public String getCartJSON( String idUser, String idProduct ){
+    public String getCartJSON( int idCart ){
         String result = null;
-        Cart myCart = cartRepo.getCart(idUser,idProduct);
+        Cart myCart = cartRepo.getCart(idCart);
 
         // si le livre a été trouvé
         if( myCart != null ) {

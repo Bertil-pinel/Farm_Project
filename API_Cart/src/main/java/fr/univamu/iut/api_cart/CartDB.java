@@ -24,14 +24,14 @@ public class CartDB implements CartInterfaceDB{
     }
 
     @Override
-    public Cart getCart(String idUser, String idProduct) {
+    public Cart getCart(int idCard) {
         Cart selectedCart = null;
 
-        String query = "SELECT * FROM `Cart` WHERE idUser=? and idProduct=?";
+        String query = "SELECT * FROM `Cart` WHERE idCart=?";
 
         // construction et exécution d'une requête préparée
         try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
-                ps.setString(1, idUser);
+                ps.setInt(1, idCard);
 
             // exécution de la requête
             ResultSet result = ps.executeQuery();
@@ -42,9 +42,11 @@ public class CartDB implements CartInterfaceDB{
             {
                 int amountItem = result.getInt("amountItem");
                 Date modifDate = result.getDate("modifDate");
+                String idProduct = result.getString("idProduct");
+                String idUser = result.getString("idUser");
 
                 // création et initialisation de l'objet Book
-                selectedCart = new Cart(idUser,amountItem,modifDate,idProduct);
+                selectedCart = new Cart(idCard,amountItem,modifDate,idProduct,idUser);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -68,14 +70,16 @@ public class CartDB implements CartInterfaceDB{
             // récupération du premier (et seul) tuple résultat
             while ( result.next() )
             {
-                String idUser = result.getString("idUser");
+
+                int idCart = result.getInt("idCart");
                 int amountItem = result.getInt("amountItem");
                 Date modifDate = result.getDate("modifDate");
                 String idProduct = result.getString("idProduct");
+                String idUser = result.getString("idUser");
 
 
                 // création du livre courant
-                Cart currentOrder = new Cart(idUser, amountItem, modifDate, idProduct);
+                Cart currentOrder = new Cart(idCart, amountItem, modifDate, idProduct,  idUser);
 
                 listCarts.add(currentOrder);
             }

@@ -7,10 +7,11 @@ import java.util.Date;
  */
 public class Cart {
 
+
     /**
      * Prix de la commande
      */
-    protected String idUser;
+    protected int idCart;
 
     /**
      * Localisation point de relais
@@ -28,19 +29,45 @@ public class Cart {
     protected String idProduct;
 
     /**
+     * Prix de la commande
+     */
+    protected String idUser;
+
+    /**
      *
      */
     public Cart(){}
 
-    public Cart(String idUser, int amountItem, Date modifDate, String idProduct) {
-        this.idUser = idUser;
+    public Cart(int idCart, int amountItem, Date modifDate, String idProduct, String idUser) {
+        this.idCart = idCart;
         this.amountItem = amountItem;
         this.modifDate = modifDate;
         this.idProduct = idProduct;
+        this.idUser = idUser;
     }
 
-    public String getIdUser() {
-        return idUser;
+    public void setIdProduct(String idProduct) {
+        this.idProduct = idProduct;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public void setIdCart(int idCart) {
+        this.idCart = idCart;
+    }
+
+    public void setAmountItem(int amountItem) {
+        this.amountItem = amountItem;
+    }
+
+    public void setModifDate(Date modifDate) {
+        this.modifDate = modifDate;
+    }
+
+    public int getIdCart() {
+        return idCart;
     }
 
     public int getAmountItem() {
@@ -55,29 +82,7 @@ public class Cart {
         return idProduct;
     }
 
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
-    }
-
-    public void setAmountItem(int amountItem) {
-        this.amountItem = amountItem;
-    }
-
-    public void setModifDate(Date modifDate) {
-        this.modifDate = modifDate;
-    }
-
-    public void setIdProduct(String idProduct) {
-        this.idProduct = idProduct;
-    }
-
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "idUser='" + idUser + '\'' +
-                ", amountItem=" + amountItem +
-                ", modifDate=" + modifDate +
-                ", idProduct='" + idProduct + '\'' +
-                '}';
+    public String getIdUser() {
+        return idUser;
     }
 }

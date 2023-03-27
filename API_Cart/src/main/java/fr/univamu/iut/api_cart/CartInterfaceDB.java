@@ -14,11 +14,10 @@ public interface CartInterfaceDB {
 
     /**
      *
-     * @param idUser
-     * @param isProduct
+     * @param idCart
      * @return
      */
-    public Cart getCart( String idUser, String isProduct);
+    public Cart getCart( int idCart);
 
     /**
      *

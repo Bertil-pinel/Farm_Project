@@ -34,16 +34,15 @@ public class CartResource {
 
     /**
      *
-     * @param idUser
-     * @param idProduct
+     * @param idCart
      * @return
      */
     @GET
-    @Path("{idUser}")
+    @Path("{idCart}")
     @Produces("application/json")
-    public String getCart( @PathParam("idUser") String idUser, String idProduct){
+    public String getCart( @PathParam("idCart") int idCart){
 
-        String result = service.getCartJSON(idUser, idProduct);
+        String result = service.getCartJSON(idCart);
 
         // si le Panier n'a pas été trouvé
         if( result == null )
