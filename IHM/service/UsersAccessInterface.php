@@ -4,6 +4,6 @@ namespace service;
 
 interface UsersAccessInterface
 {
-    public function getAllUsers($data);
+    public function getAllUsers();
 
 }

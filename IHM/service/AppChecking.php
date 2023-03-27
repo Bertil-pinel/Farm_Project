@@ -1,7 +1,7 @@
 <?php
 
 namespace service;
-class AppChecking implements ProductsAccessInterface, UsersAccessInterface
+class AppChecking
 {
     protected $productsTxt;
     protected $UsersTxt;

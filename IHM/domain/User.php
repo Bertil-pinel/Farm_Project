@@ -8,7 +8,7 @@ class User
     protected $password;
     protected $dateOfCreation;
 
-    public function __construct($mail, $password)
+    public function __construct($username,$mail, $password,$dateOfCreation)
     {
         $this->username = $username;
         $this->mail = $mail;
