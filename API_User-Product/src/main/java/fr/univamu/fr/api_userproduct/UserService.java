@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class UserService {
 
-    protected UserDBInterface UserRepositoryDB ;
+    protected UsAndProDBInterface UserRepositoryDB ;
 
 
-    public  UserService( UserDBInterface UserRepositoryDB) {
+    public  UserService( UsAndProDBInterface UserRepositoryDB) {
         this.UserRepositoryDB = UserRepositoryDB;
     }
 

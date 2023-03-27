@@ -4,7 +4,7 @@ import java.io.Closeable;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class UserRepositoryDB implements UserDBInterface, Closeable {
+public class UsAndRepoRepositoryDB implements UsAndProDBInterface, Closeable {
 
     /**
      * Session accesing the data
@@ -18,7 +18,7 @@ public class UserRepositoryDB implements UserDBInterface, Closeable {
      * @param user Identifier to connect to mysql
      * @param pwd password to connect to mysql
      */
-    public UserRepositoryDB(String infoConnection, String user, String pwd ) throws java.sql.SQLException, java.lang.ClassNotFoundException {
+    public UsAndRepoRepositoryDB(String infoConnection, String user, String pwd ) throws java.sql.SQLException, java.lang.ClassNotFoundException {
         Class.forName("org.mariadb.jdbc.Driver");
         dbConnection = DriverManager.getConnection( infoConnection, user, pwd ) ;
     }

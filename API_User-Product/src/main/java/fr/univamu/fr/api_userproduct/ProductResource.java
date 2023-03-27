@@ -12,7 +12,7 @@ public class ProductResource {
 
     public ProductResource(){}
 
-    public @Inject ProductResource( UserDBInterface userDB ){
+    public @Inject ProductResource( UsAndProDBInterface userDB ){
         this.service = new UserService(userDB) ;
     }
 

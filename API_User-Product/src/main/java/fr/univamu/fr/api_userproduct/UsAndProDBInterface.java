@@ -6,7 +6,7 @@ import java.util.*;
  * Interface for accessing Users data
  */
 
-public interface UserDBInterface {
+public interface UsAndProDBInterface {
 
     /**
      *  Method closing data access for Users
