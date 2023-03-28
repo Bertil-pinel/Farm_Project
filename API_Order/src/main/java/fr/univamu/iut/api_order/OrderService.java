@@ -2,6 +2,8 @@ package fr.univamu.iut.api_order;
 
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
+import jakarta.ws.rs.NotFoundException;
+
 import java.util.ArrayList;
 
 /**
@@ -14,9 +16,15 @@ public class OrderService {
      * Objet permettant d'accéder au dépôt où sont stockées les informations sur les livres
      */
     protected OrderInterfaceDB orderRepo ;
+    protected CartInterfaceDB cartRepo;
 
     public OrderService(OrderInterfaceDB orderRepo) {
         this.orderRepo = orderRepo;
+    }
+
+    public OrderService(OrderInterfaceDB orderRepo, CartInterfaceDB cartRepo) {
+        this.orderRepo = orderRepo;
+        this.cartRepo = cartRepo ;
     }
 
     /**
@@ -60,6 +68,19 @@ public class OrderService {
         }
         return result;
     }
+
+
+    public boolean registerReservation(int id) {
+        boolean result = false;
+
+        Cart myCart = cartRepo.getCart( id);
+
+        if( myCart == null )
+            throw  new NotFoundException("cart not exists");
+
+        return result;
+    }
+
 
 }
 

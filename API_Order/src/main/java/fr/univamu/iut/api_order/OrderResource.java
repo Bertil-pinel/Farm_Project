@@ -3,6 +3,7 @@ package fr.univamu.iut.api_order;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
 
 @Path("/orders")
 @ApplicationScoped
@@ -50,5 +51,21 @@ public class OrderResource {
 
         return result;
     }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @POST
+    @Consumes("application/x-www-form-urlencoded")
+    public Response registerOrder(@FormParam("id") int id){
+
+        if( service.registerReservation(id))
+            return Response.ok("registred").build();
+        else
+            return Response.status( Response.Status.CONFLICT ).build();
+    }
+
 
 }
