@@ -67,5 +67,13 @@ public class OrderResource {
             return Response.status( Response.Status.CONFLICT ).build();
     }
 
+    @PUT
+    @Path("{idOrder}")
+    @Consumes("application/json")
+    public Response createOrder(@PathParam("idOrder") int idOrder ){
+        service.createOrder(idOrder);
+        return Response.ok("updated").build();
+    }
+
 
 }

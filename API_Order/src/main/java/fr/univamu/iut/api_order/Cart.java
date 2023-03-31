@@ -7,7 +7,6 @@ import java.util.Date;
  */
 public class Cart {
 
-
     /**
      * Prix de la commande
      */
