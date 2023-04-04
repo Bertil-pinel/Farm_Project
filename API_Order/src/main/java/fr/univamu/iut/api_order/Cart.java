@@ -1,6 +1,5 @@
 package fr.univamu.iut.api_order;
 
-import java.util.Date;
 
 /**
  * Classe représantant une Commande
@@ -20,7 +19,7 @@ public class Cart {
     /**
      * Date de retrait
      */
-    protected Date modifDate;
+    protected String modifDate;
 
     /**
      * Référence de la commande
@@ -37,7 +36,7 @@ public class Cart {
      */
     public Cart(){}
 
-    public Cart(int idCart, int amountItem, Date modifDate, String idProduct, String idUser) {
+    public Cart(int idCart, int amountItem, String modifDate, String idProduct, String idUser) {
         this.idCart = idCart;
         this.amountItem = amountItem;
         this.modifDate = modifDate;
@@ -61,7 +60,7 @@ public class Cart {
         this.amountItem = amountItem;
     }
 
-    public void setModifDate(Date modifDate) {
+    public void setModifDate(String modifDate) {
         this.modifDate = modifDate;
     }
 
@@ -73,7 +72,7 @@ public class Cart {
         return amountItem;
     }
 
-    public Date getModifDate() {
+    public String getModifDate() {
         return modifDate;
     }
 

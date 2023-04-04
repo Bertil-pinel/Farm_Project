@@ -25,25 +25,39 @@ public class Order {
     /**
      * Date de retrait
      */
-    protected Date orderDate;
+    protected String orderDate;
+
+    /**
+     *
+     */
+    protected boolean isValidate;
+
+    /**
+     *
+     */
+    protected String recapOrder;
 
     /**
      *
      */
     public Order(){}
 
-    /**
-     *
-     * @param id_Order
-     * @param orderPrice
-     * @param relayPlace
-     * @param orderDate
-     */
-    public Order(int idOrder, float orderPrice, String relayPlace, Date orderDate) {
+
+    public Order(int idOrder, float orderPrice, String relayPlace, String orderDate, boolean isValidate, String recapOrder) {
         this.idOrder = idOrder;
         this.orderPrice = orderPrice;
         this.relayPlace = relayPlace;
         this.orderDate = orderDate;
+        this.isValidate = isValidate;
+        this.recapOrder = recapOrder;
+    }
+
+    public void setValidate(boolean validate) {
+        isValidate = validate;
+    }
+
+    public boolean isValidate() {
+        return isValidate;
     }
 
     /**
@@ -52,6 +66,14 @@ public class Order {
      */
     public int getIdOrder() {
         return idOrder;
+    }
+
+    public void setRecapOrder(String recapOrder) {
+        this.recapOrder = recapOrder;
+    }
+
+    public String getRecapOrder() {
+        return recapOrder;
     }
 
     /**
@@ -74,7 +96,7 @@ public class Order {
      *
      * @return
      */
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
@@ -106,21 +128,18 @@ public class Order {
      *
      * @param orderDate
      */
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
     public String toString() {
         return "Order{" +
-                "id_Order=" + idOrder +
+                "idOrder=" + idOrder +
                 ", orderPrice=" + orderPrice +
                 ", relayPlace='" + relayPlace + '\'' +
                 ", orderDate=" + orderDate +
+                ", isValidate=" + isValidate +
                 '}';
     }
 }

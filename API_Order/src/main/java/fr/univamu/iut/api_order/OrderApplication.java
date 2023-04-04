@@ -29,6 +29,11 @@ public class OrderApplication extends Application {
         return db;
     }
 
+    @Produces
+    private CartInterfaceDB connectCartApi(){
+        return new CartDBApi("http://localhost:8080/Api_Cart-1.0-SNAPSHOT/api/");
+    }
+
     /**
      * Méthode permettant de fermer la connexion à la base de données lorsque l'application est arrêtée
      * @param orderRepo la connexion à la base de données instanciée dans la méthode @openDbConnection

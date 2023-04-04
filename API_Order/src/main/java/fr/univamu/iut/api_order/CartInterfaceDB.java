@@ -25,5 +25,4 @@ public interface CartInterfaceDB {
      */
     public ArrayList<Cart> getAllCart() ;
 
-
 }

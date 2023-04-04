@@ -41,7 +41,7 @@ public class CartDB implements CartInterfaceDB{
             if( result.next() )
             {
                 int amountItem = result.getInt("amountItem");
-                Date modifDate = result.getDate("modifDate");
+                String modifDate = result.getString("modifDate");
                 String idProduct = result.getString("idProduct");
                 String idUser = result.getString("idUser");
 
@@ -73,7 +73,7 @@ public class CartDB implements CartInterfaceDB{
 
                 int idCart = result.getInt("idCart");
                 int amountItem = result.getInt("amountItem");
-                Date modifDate = result.getDate("modifDate");
+                String modifDate = result.getString("modifDate");
                 String idProduct = result.getString("idProduct");
                 String idUser = result.getString("idUser");
 

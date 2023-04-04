@@ -14,9 +14,9 @@ public class OrderResource {
     private OrderService service;
 
     public OrderResource(){}
-    
-    public @Inject OrderResource(OrderInterfaceDB orderRepo){
-        this.service = new OrderService( orderRepo) ;
+
+    public @Inject OrderResource(OrderInterfaceDB orderRepo, CartInterfaceDB cartRepo){
+        this.service = new OrderService( orderRepo , cartRepo ) ;
     }
 
     public OrderResource( OrderService service ){
@@ -41,7 +41,7 @@ public class OrderResource {
     @GET
     @Path("{idOrder}")
     @Produces("application/json")
-    public String getBook( @PathParam("idOrder") int idOrder){
+    public String getOrder( @PathParam("idOrder") int idOrder){
 
         String result = service.getOrderJSON(idOrder);
 
@@ -52,28 +52,35 @@ public class OrderResource {
         return result;
     }
 
-    /**
-     *
-     * @param id
-     * @return
-     */
-    @POST
-    @Consumes("application/x-www-form-urlencoded")
-    public Response registerOrder(@FormParam("id") int id){
+    @DELETE
+    @Path("{idOrder}")
+    public Response removeOrder(@PathParam("idOrder") int idOrder){
 
-        if( service.registerReservation(id))
-            return Response.ok("registred").build();
+        if( service.deleteOrder(idOrder) )
+            return Response.ok("removed").build();
+        else
+            return Response.status( Response.Status.NOT_FOUND ).build();
+    }
+
+    @PUT
+    @Consumes("application/x-www-form-urlencoded")
+    public Response validateOrder( @FormParam("idOrder") int idOrder){
+
+        if( service.validateOrder(idOrder) )
+            return Response.ok("validated").build();
         else
             return Response.status( Response.Status.CONFLICT ).build();
     }
 
-    @PUT
-    @Path("{idOrder}")
-    @Consumes("application/json")
-    public Response createOrder(@PathParam("idOrder") int idOrder ){
-        service.createOrder(idOrder);
-        return Response.ok("updated").build();
-    }
 
+    @POST
+    @Consumes("application/x-www-form-urlencoded")
+    public Response registerOrder( @FormParam("idCart") int idCart, @FormParam("relayPlace") String relayPlace, @FormParam("orderDate") String orderDate){
+        if( service.createOrder(idCart, relayPlace, orderDate))
+            return Response.ok("registred").build();
+        else
+            return Response.status( Response.Status.CONFLICT ).build();
+
+    }
 
 }

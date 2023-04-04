@@ -18,13 +18,13 @@ public class OrderService {
     protected OrderInterfaceDB orderRepo ;
     protected CartInterfaceDB cartRepo;
 
-    public OrderService(OrderInterfaceDB orderRepo) {
+    /*public OrderService(OrderInterfaceDB orderRepo) {
         this.orderRepo = orderRepo;
-    }
+    }*/
 
     public OrderService(OrderInterfaceDB orderRepo, CartInterfaceDB cartRepo) {
         this.orderRepo = orderRepo;
-        this.cartRepo = cartRepo ;
+        this.cartRepo = cartRepo;
     }
 
     /**
@@ -69,22 +69,26 @@ public class OrderService {
         return result;
     }
 
-
-    public boolean registerReservation(int id) {
+    public boolean createOrder(int idCart, String relayPlace, String orderDate){
         boolean result = false;
 
-        Cart myCart = cartRepo.getCart( id);
-
-        if( myCart == null )
-            throw  new NotFoundException("cart not exists");
-
+        if(cartRepo.getCart(idCart) == null ){
+            throw new NotFoundException("Cart not exists");
+        }else{
+            result = orderRepo.createOrder(cartRepo.getCart(idCart).getAmountItem(),relayPlace, orderDate,false,cartRepo.getCart(idCart).getIdProduct());
+        }
         return result;
     }
 
-    public void createOrder(int idOrder){
-
+    public boolean validateOrder(int idOrder){
+        boolean result = orderRepo.validateOrder(idOrder);
+        return result;
     }
 
+    public boolean deleteOrder(int idOrder){
+        boolean result = orderRepo.deleteOrder(idOrder);
+        return result;
+    }
 
 }
 
