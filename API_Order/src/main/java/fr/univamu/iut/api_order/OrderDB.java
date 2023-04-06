@@ -3,15 +3,31 @@ package fr.univamu.iut.api_order;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Classe des requêtes à la base de données des commandes
+ */
 public class OrderDB implements OrderInterfaceDB{
-
+    /**
+     * Connexion à la base de données
+     */
     protected Connection dbConnection ;
 
+    /**
+     * Constructeur initialisant la connexion à la base de données
+     * @param infoConnection
+     * @param user
+     * @param pwd
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
+     */
     public OrderDB(String infoConnection, String user, String pwd ) throws java.sql.SQLException, java.lang.ClassNotFoundException {
         Class.forName("org.mariadb.jdbc.Driver");
         dbConnection = DriverManager.getConnection( infoConnection, user, pwd ) ;
     }
 
+    /**
+     * fermeture de la connexion
+     */
     @Override
     public void close() {
         try{
@@ -22,6 +38,10 @@ public class OrderDB implements OrderInterfaceDB{
         }
     }
 
+    /**
+     * Récupère une commande selon son ID de la base de données
+     * @return une commande
+     */
     @Override
     public Order getOrder(int idOrder) {
         Order selectedOrder = null;
@@ -39,7 +59,7 @@ public class OrderDB implements OrderInterfaceDB{
             // (si la référence du livre est valide)
             if( result.next() )
             {
-                float orderPrice = result.getFloat("orderPrice");
+                int orderPrice = result.getInt("orderPrice");
                 String relayPlace = result.getString("relayPlace");
                 String orderDate = result.getString("orderDate");
                 boolean isValidate = result.getBoolean("isValidate");
@@ -54,6 +74,10 @@ public class OrderDB implements OrderInterfaceDB{
         return selectedOrder;
     }
 
+    /**
+     * Récupère toutes les commandes de la base de données
+     * @return ArrayList de commande
+     */
     @Override
     public ArrayList<Order> getAllOrder() {
         ArrayList<Order> listOrders ;
@@ -71,7 +95,7 @@ public class OrderDB implements OrderInterfaceDB{
             while ( result.next() )
             {
                 int idOrder = result.getInt("idOrder");
-                float orderPrice = result.getFloat("orderPrice");
+                int orderPrice = result.getInt("orderPrice");
                 String relayPlace = result.getString("relayPlace");
                 String orderDate = result.getString("orderDate");
                 boolean isValidate = result.getBoolean("isValidate");
@@ -88,8 +112,17 @@ public class OrderDB implements OrderInterfaceDB{
         return listOrders;
     }
 
+    /**
+     * Créer une commande dans la base de données
+     * @param orderPrice
+     * @param relayPlace
+     * @param orderDate
+     * @param isValidate
+     * @param recapOrder
+     * @return boolean oui si la requête à fonctionner non dans le cas contraire
+     */
     @Override
-    public boolean createOrder(float orderPrice, String relayPlace, String orderDate, boolean isValidate, String recapOrder) {
+    public boolean createOrder(int orderPrice, String relayPlace, String orderDate, boolean isValidate, String recapOrder) {
 
         String query = "INSERT INTO `Order` (`idOrder`, `orderPrice`, `relayPlace`, `orderDate`, `isValidate`, `recapOrder`) VALUES (?,?,?,?,?,?)";
 
@@ -111,6 +144,11 @@ public class OrderDB implements OrderInterfaceDB{
         return true;
     }
 
+    /**
+     * Supprime une commande de la base de données
+     * @param idOrder
+     * @return boolean oui si la requête à fonctionner non dans le cas contraire
+     */
     @Override
     public boolean deleteOrder(int idOrder) {
         String query = "DELETE FROM `Order` WHERE idOrder=?";
@@ -127,6 +165,11 @@ public class OrderDB implements OrderInterfaceDB{
         return true;
     }
 
+    /**
+     * Valide une commande de la base de données
+     * @param idOrder
+     * @return boolean oui si la requête à fonctionner non dans le cas contraire
+     */
     @Override
     public boolean validateOrder(int idOrder) {
         String query = "UPDATE `Order` SET `isValidate`=1 WHERE idOrder=?";

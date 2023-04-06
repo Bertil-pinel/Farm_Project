@@ -5,27 +5,42 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
+/**
+ * Classe permettant d'accéder au différentes fonctionnalités de l'api via l'url
+ */
 @Path("/orders")
 @ApplicationScoped
 public class OrderResource {
     /**
-     * Service utilisé pour accéder aux données des livres et récupérer/modifier leurs informations
+     * Service utilisé pour accéder aux données des commandes et récupérer/modifier leurs informations
      */
     private OrderService service;
 
+    /**
+     * constructeur par défaut
+     */
     public OrderResource(){}
 
+    /**
+     * constructeur injectant pour le fonctionnement dans l'URL
+     * @param orderRepo
+     * @param cartRepo
+     */
     public @Inject OrderResource(OrderInterfaceDB orderRepo, CartInterfaceDB cartRepo){
         this.service = new OrderService( orderRepo , cartRepo ) ;
     }
 
+    /**
+     * constructeur
+     * @param service
+     */
     public OrderResource( OrderService service ){
         this.service = service;
     }
 
     /**
-     * Enpoint permettant de publier de tous les livres enregistrés
-     * @return la liste des livres (avec leurs informations) au format JSON
+     * Enpoint permettant de récupérer toutes les Commandes enregistrés
+     * @return la liste des commandes (avec leurs informations) au format JSON
      */
     @GET
     @Produces("application/json")
@@ -34,9 +49,9 @@ public class OrderResource {
     }
 
     /**
-     * Endpoint permettant de publier les informations d'un livre dont la référence est passée paramètre dans le chemin
-     * @param idOrder référence du livre recherché
-     * @return les informations du livre recherché au format JSON
+     * Endpoint permettant de récupérer les informations d'une commande dont la référence est passée en paramètre dans le chemin
+     * @param idOrder référence de la commande recherchée
+     * @return les informations de la commande recherchée au format JSON
      */
     @GET
     @Path("{idOrder}")
@@ -52,6 +67,11 @@ public class OrderResource {
         return result;
     }
 
+    /**
+     * Endpoint permettant de supprimer une commande dont la référence est passée en paramètre dans le chemin
+     * @param idOrder référence de la commande recherchée
+     * @return La réponse à la réussite de la fonction
+     */
     @DELETE
     @Path("{idOrder}")
     public Response removeOrder(@PathParam("idOrder") int idOrder){
@@ -62,6 +82,11 @@ public class OrderResource {
             return Response.status( Response.Status.NOT_FOUND ).build();
     }
 
+    /**
+     * Endpoint permettant de valider une commande dont la référence est passée en paramètre dans le chemin
+     * @param idOrder référence de la commande recherchée
+     * @return La réponse à la réussite de la fonction
+     */
     @PUT
     @Consumes("application/x-www-form-urlencoded")
     public Response validateOrder( @FormParam("idOrder") int idOrder){
@@ -73,6 +98,13 @@ public class OrderResource {
     }
 
 
+    /**
+     * Endpoint permettant de créer une commande dont la référence du panier est passée en paramètre dans le chemin
+     * @param idCart référence de du panier à utilisé
+     * @param relayPlace adresse du relai de livraison
+     * @param orderDate date de la commande
+     * @return La réponse à la réussite de la fonction
+     */
     @POST
     @Consumes("application/x-www-form-urlencoded")
     public Response registerOrder( @FormParam("idCart") int idCart, @FormParam("relayPlace") String relayPlace, @FormParam("orderDate") String orderDate){

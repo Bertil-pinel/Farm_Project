@@ -6,6 +6,9 @@ import jakarta.enterprise.inject.Produces;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
+/**
+ * Classe principale de l'API commande
+ */
 @ApplicationPath("/api")
 @ApplicationScoped
 public class OrderApplication extends Application {
@@ -13,8 +16,8 @@ public class OrderApplication extends Application {
     /**
      * Méthode appelée par l'API CDI pour injecter la connection à la base de données au moment de la création
      * de la ressource
-     * @return un objet implémentant l'interface BookRepositoryInterface utilisée
-     *          pour accéder aux données des livres, voire les modifier
+     * @return un objet implémentant l'interface OrderRepositoryInterface utilisée
+     *          pour accéder aux données des commandes, les valider, supprimer ...
      */
     @Produces
     private OrderInterfaceDB openDbConnection(){

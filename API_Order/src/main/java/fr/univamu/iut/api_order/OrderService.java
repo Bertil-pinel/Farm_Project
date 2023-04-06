@@ -13,22 +13,27 @@ import java.util.ArrayList;
 public class OrderService {
 
     /**
-     * Objet permettant d'accéder au dépôt où sont stockées les informations sur les livres
+     * Objet permettant d'accéder au dépôt où sont stockées les informations sur les commandes
      */
     protected OrderInterfaceDB orderRepo ;
+
+    /**
+     * Objet permettant d'accéder au dépôt où sont stockées les informations sur les paniers
+     */
     protected CartInterfaceDB cartRepo;
 
-    /*public OrderService(OrderInterfaceDB orderRepo) {
-        this.orderRepo = orderRepo;
-    }*/
-
+    /**
+     * constructeur des objet accédants aux dépots
+     * @param orderRepo
+     * @param cartRepo
+     */
     public OrderService(OrderInterfaceDB orderRepo, CartInterfaceDB cartRepo) {
         this.orderRepo = orderRepo;
         this.cartRepo = cartRepo;
     }
 
     /**
-     * Méthode retournant les informations sur les livres au format JSON
+     * Méthode retournant les informations sur les commandes au format JSON
      * @return une chaîne de caractère contenant les informations au format JSON
      */
     public String getAllOrdersJSON(){
@@ -48,8 +53,8 @@ public class OrderService {
     }
 
     /**
-     * Méthode retournant au format JSON les informations sur un livre recherché
-     * @param idOrder la référence du livre recherché
+     * Méthode retournant au format JSON les informations sur une commande recherchée
+     * @param idOrder la référence de la commande recherchée
      * @return une chaîne de caractère contenant les informations au format JSON
      */
     public String getOrderJSON( int idOrder ){
@@ -69,6 +74,13 @@ public class OrderService {
         return result;
     }
 
+    /**
+     * Méthode qui permet de créer une commande
+     * @param idCart
+     * @param relayPlace
+     * @param orderDate
+     * @return boolean
+     */
     public boolean createOrder(int idCart, String relayPlace, String orderDate){
         boolean result = false;
 
@@ -80,11 +92,21 @@ public class OrderService {
         return result;
     }
 
+    /**
+     * Méthode qui permet de valider une commande
+     * @param idOrder
+     * @return boolean
+     */
     public boolean validateOrder(int idOrder){
         boolean result = orderRepo.validateOrder(idOrder);
         return result;
     }
 
+    /**
+     * Méthode qui permet de supprimer une commande
+     * @param idOrder
+     * @return boolean
+     */
     public boolean deleteOrder(int idOrder){
         boolean result = orderRepo.deleteOrder(idOrder);
         return result;

@@ -1,24 +1,20 @@
 package fr.univamu.iut.api_order;
 
-import jakarta.json.Json;
-import jakarta.json.JsonArray;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonObjectBuilder;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.ArrayList;
-import java.util.List;
 
-
+/**
+ * Classe des requêtes à la base de données des paniers
+ */
 public class CartDBApi implements CartInterfaceDB {
 
     /**
-     * URL de l'API des livres
+     * URL de l'API des paniers
      */
     String url;
 
@@ -30,9 +26,17 @@ public class CartDBApi implements CartInterfaceDB {
         this.url = url ;
     }
 
+    /**
+     * ferme la connexion à l'API
+     */
     @Override
     public void close() {}
 
+    /**
+     * Méthode permettant de récupérer un panier selon sa référence
+     * @param idCart
+     * @return un panier
+     */
     @Override
     public Cart getCart(int idCart) {
         Cart myCart = null;
@@ -55,6 +59,10 @@ public class CartDBApi implements CartInterfaceDB {
         return myCart;
     }
 
+    /**
+     * Méthode permettant de récupérer tous les paniers
+     * @return ArrayList de panier
+     */
     @Override
     public ArrayList<Cart> getAllCart() {
         ArrayList<Cart> myCarts = new ArrayList<>();

@@ -1,13 +1,12 @@
 package fr.univamu.iut.api_order;
 
-
 /**
  * Classe représantant une Commande
  */
 public class Cart {
 
     /**
-     * Prix de la commande
+     * Id de la commande
      */
     protected int idCart;
 
