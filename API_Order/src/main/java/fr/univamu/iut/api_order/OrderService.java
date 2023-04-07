@@ -87,7 +87,7 @@ public class OrderService {
         if(cartRepo.getCart(idCart) == null ){
             throw new NotFoundException("Cart not exists");
         }else{
-            result = orderRepo.createOrder(cartRepo.getCart(idCart).getAmountItem(),relayPlace, orderDate,false,cartRepo.getCart(idCart).getIdProduct());
+            result = orderRepo.createOrder(cartRepo.getCart(idCart).getAmountPrice(),relayPlace, orderDate,false,cartRepo.getCart(idCart).getIdProduct());
         }
         return result;
     }

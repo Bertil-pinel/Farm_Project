@@ -1,7 +1,6 @@
 package fr.univamu.iut.api_order.test;
 
 import fr.univamu.iut.api_order.Order;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
