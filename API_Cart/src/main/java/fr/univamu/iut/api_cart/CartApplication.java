@@ -30,7 +30,7 @@ public class CartApplication extends Application {
     }
 
     /**
-     *
+     * Méthode permettant de fermer la connexion à la BDD
      * @param cartRepo
      */
     private void closeDbConnection(@Disposes CartInterfaceDB cartRepo ) {

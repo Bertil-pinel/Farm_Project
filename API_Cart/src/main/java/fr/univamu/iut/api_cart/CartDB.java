@@ -10,13 +10,25 @@ import java.util.Date;
 
 public class CartDB implements CartInterfaceDB{
 
+    /**
+     * Objet servant à la connexion à la BDD
+     */
     protected Connection dbConnection ;
 
+    /**
+     * Constructeur de la connexion à la BDD
+     * @param infoConnection String pour le nom de la BDD
+     * @param user String pour le nom de l'utilisateur relié à la BDD
+     * @param pwd String pour le mot de passe de la BDD
+     */
     public CartDB(String infoConnection, String user, String pwd ) throws java.sql.SQLException, java.lang.ClassNotFoundException {
         Class.forName("org.mariadb.jdbc.Driver");
         dbConnection = DriverManager.getConnection( infoConnection, user, pwd ) ;
     }
 
+    /**
+     * Méthode qui ferme la connexion à la BDD
+     */
     @Override
     public void close() {
         try{
@@ -27,6 +39,11 @@ public class CartDB implements CartInterfaceDB{
         }
     }
 
+    /**
+     * Méthode permettant d'accéder dans la BDD à un panier en particulier
+     * @param idCard Int définissant le panier souhaité
+     * @return le panier correspondans à idCart dans la BDD
+     */
     @Override
     public Cart getCart(int idCard) {
         Cart selectedCart = null;
@@ -58,6 +75,10 @@ public class CartDB implements CartInterfaceDB{
         return selectedCart;
     }
 
+    /**
+     * Méthode permettant d'accéder dans la BDD à tous les paniers
+     * @return une liste de tous les paniers stockés dans la BDD
+     */
     @Override
     public ArrayList<Cart> getAllCart() {
         ArrayList<Cart> listCarts ;
@@ -93,6 +114,11 @@ public class CartDB implements CartInterfaceDB{
         return listCarts;
     }
 
+    /**
+     * Méthode permettant de créer un panier et le stocker dans la BDD
+     * @param mail String pour l'ID de l'utilisateur créant le panier
+     * @return un boolean pour connaitre la réussite de la méthode
+     */
     @Override
     public boolean createCart(String mail) {
 
@@ -112,6 +138,11 @@ public class CartDB implements CartInterfaceDB{
         return true;
     }
 
+    /**
+     * Méthode permettant de supprimer un panier
+     * @param idCart int pour séléctionner le panier souhaité
+     * @return un boolean pour connaitre la réussite de la méthode
+     */
     @Override
     public boolean deleteCart(int idCart) {
 
@@ -130,6 +161,12 @@ public class CartDB implements CartInterfaceDB{
         return true;
     }
 
+    /**
+     * Méthode permettant d'ajouter un produit dans le panier souhaité
+     * @param cart Cart visant le panier souhaité
+     * @param product Product visant le produit souhaité
+     * @return un boolean pour connaitre la réussite de la méthode
+     */
     @Override
     public boolean addProduct(Cart cart, Product product) {
 
@@ -137,6 +174,8 @@ public class CartDB implements CartInterfaceDB{
         Date dateCurrent = new Date();
 
         String dateDB = dateFormat.format(dateCurrent);
+
+        cart.setDateOfChange(dateDB);
 
         int totalAmount = (int) (cart.getTotalAmount() - product.getItemCost());
 
@@ -162,6 +201,12 @@ public class CartDB implements CartInterfaceDB{
         return true;
     }
 
+    /**
+     * Méthode permettant d'de supprimer un produit dans le panier souhaité
+     * @param cart Cart visant le panier souhaité
+     * @param product Product visant le produit souhaité
+     * @return un boolean pour connaitre la réussite de la méthode
+     */
     @Override
     public boolean removeProduct(Cart cart, Product product) {
 
@@ -171,6 +216,8 @@ public class CartDB implements CartInterfaceDB{
         Date dateCurrent = new Date();
 
         String dateDB = dateFormat.format(dateCurrent);
+
+        cart.setDateOfChange(dateDB);
 
         String query = "ALTER TABLE `Cart` DROP (`Product`) WHERE idCart=? AND Product=?";
 

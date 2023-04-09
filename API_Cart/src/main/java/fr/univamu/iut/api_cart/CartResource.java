@@ -27,8 +27,8 @@ public class CartResource {
     }
 
     /**
-     * Enpoint permettant de publier de tous les livres enregistrés
-     * @return la liste des livres (avec leurs informations) au format JSON
+     * Enpoint permettant de publier tous les paniers enregistrés
+     * @return la liste des paniers (avec leurs informations) au format JSON
      */
     @GET
     @Produces("application/json")
@@ -37,9 +37,8 @@ public class CartResource {
     }
 
     /**
-     *
-     * @param idCart
-     * @return
+     * Enpoint permettant de publier un panier en particulier
+     * @return le panier souhaité (avec ses informations) au format JSON
      */
     @GET
     @Path("{idCart}")
@@ -55,6 +54,10 @@ public class CartResource {
         return result;
     }
 
+    /**
+     * Enpoint permettant de créer un panier
+     * @return une réponse en fonction de la réussite de l'Enpoint
+     */
     @POST
     @Consumes("application/x-www-form-urlencoded")
     public Response createCart( @FormParam("mail") String mail){
@@ -65,6 +68,10 @@ public class CartResource {
 
     }
 
+    /**
+     * Enpoint permettant de supprimer un panier
+     * @return une réponse en fonction de la réussite de l'Enpoint
+     */
     @DELETE
     @Path("{idCart}")
     public Response deleteCart(@PathParam("idCart") int idCart){
@@ -75,6 +82,10 @@ public class CartResource {
             return Response.status( Response.Status.NOT_FOUND ).build();
     }
 
+    /**
+     * Enpoint permettant de vérifier la mise à jour d'un panier
+     * @return une réponse en fonction de la réussite de l'Enpoint
+     */
     @PUT
     @Path("{idCart}")
     @Consumes("application/json")

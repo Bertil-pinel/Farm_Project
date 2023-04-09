@@ -15,20 +15,32 @@ import java.util.ArrayList;
 public class CartService {
 
     /**
-     * Objet permettant d'accéder au dépôt où sont stockées les informations sur les Users, les Products et les Carts
+     * Objets permettant d'accéder au dépôt où sont stockées les informations sur les Users et les Products et les Carts
      */
     protected CartInterfaceDB cartRepo ;
+
+    /**
+     * Objets permettant d'accéder au dépôt où sont stockées les informations sur les Carts
+     */
     protected UsAndProDBInterface usAndProRepo;
 
+    /**
+     * Un boolean pour connaitre la réussite des méthodes qui l'utilisent
+     */
     protected boolean result = false;
 
+    /**
+     * Constructeur de CartService
+     * @param cartRepo CartInterfaceDB permettant d'accéder au dépôt où sont stockées les informations sur les Users et les Products et les Carts
+     * @param usAndProRepo UsAndProDBInterface permettant d'accéder au dépôt où sont stockées les informations sur les Carts
+     */
     public CartService(CartInterfaceDB cartRepo, UsAndProDBInterface usAndProRepo) {
         this.cartRepo = cartRepo;
         this.usAndProRepo = usAndProRepo;
     }
 
     /**
-     * Méthode retournant les informations sur les livres au format JSON
+     * Méthode retournant les informations sur tous les paniers de la BDD au format JSON
      * @return une chaîne de caractère contenant les informations au format JSON
      */
     public String getAllCartsJSON(){
@@ -48,9 +60,9 @@ public class CartService {
     }
 
     /**
-     *
-     * @param idCart
-     * @return
+     * Méthode retournant les informations sur un panier souhaité de la BDD au format JSON
+     * @param idCart Int visant le panier souhaité
+     * @return une chaîne de caractère contenant les informations au format JSON
      */
     public String getCartJSON( int idCart ){
         String result = null;
@@ -71,6 +83,7 @@ public class CartService {
 
     /**
      * Méthode qui créer un panier
+     * @param mail String visant l'utilisateur qui crée le panier
      * @return un boolean pour vérifier la réussite de la fonction
      */
     public boolean createCart( String mail ){
@@ -85,6 +98,7 @@ public class CartService {
 
     /**
      * Méthode qui supprime un panier
+     * @param idCart Int visant le panier souhaité
      * @return un boolean pour vérifier la réussite de la fonction
      */
     public boolean deleteCart(int idCart){
@@ -99,6 +113,8 @@ public class CartService {
 
     /**
      * Méthode qui ajoute un produit dans un panier
+     * @param cart Cart visant le panier souhaité pour ajouter le product à l'objet java
+     * @param product Product visant le produit souhaité
      * @return un boolean pour vérifier la réussite de la fonction
      */
     public boolean addProduct(Cart cart, Product product ){
@@ -107,12 +123,15 @@ public class CartService {
             throw new NotFoundException("Cart not exists");
         }else{
             this.result = cartRepo.addProduct(cart, product);
+            cart.setIdProduct(product.getName());
         }
         return this.result;
     }
 
     /**
-     * Méthode qui supprime un produit dans un panier
+     * Méthode qui supprime un produit dans un panief
+     * @param cart Cart visant le panier souhaité pour supprimer le product à l'objet java
+     * @param product Product visant le produit souhaité
      * @return un boolean pour vérifier la réussite de la fonction
      */
     public boolean removeProduct(Cart cart, Product product){
@@ -121,6 +140,7 @@ public class CartService {
             throw new NotFoundException("Cart not exists");
         }else{
             this.result = cartRepo.removeProduct(cart, product);
+            cart.setIdProduct(null);
         }
         return this.result;
     }
