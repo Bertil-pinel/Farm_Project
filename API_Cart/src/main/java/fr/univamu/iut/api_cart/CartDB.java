@@ -1,5 +1,7 @@
 package fr.univamu.iut.api_cart;
 
+import fr.univamu.iut.api_cart.UserNProduct.Product;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,13 +42,13 @@ public class CartDB implements CartInterfaceDB{
             // (si la référence du livre est valide)
             if( result.next() )
             {
-                int amountItem = result.getInt("amountItem");
-                String modifDate = result.getString("modifDate");
-                String idProduct = result.getString("idProduct");
-                String idUser = result.getString("idUser");
+                int totalAmount = result.getInt("TotalAmount");
+                String dateOfChange = result.getString("DateOfChange");
+                String idProduct = result.getString("Product");
+                String idUser = result.getString("User");
 
                 // création et initialisation de l'objet Book
-                selectedCart = new Cart(idCard,amountItem,modifDate,idProduct,idUser);
+                selectedCart = new Cart(idCard,totalAmount,dateOfChange,idProduct,idUser);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -72,14 +74,14 @@ public class CartDB implements CartInterfaceDB{
             {
 
                 int idCart = result.getInt("idCart");
-                int amountItem = result.getInt("amountItem");
-                String modifDate = result.getString("modifDate");
-                String idProduct = result.getString("idProduct");
-                String idUser = result.getString("idUser");
+                int totalAmount = result.getInt("TotalAmount");
+                String dateOfChange = result.getString("DateOfChange");
+                String idProduct = result.getString("Product");
+                String idUser = result.getString("User");
 
 
                 // création du livre courant
-                Cart currentOrder = new Cart(idCart, amountItem, modifDate, idProduct,  idUser);
+                Cart currentOrder = new Cart(idCart, totalAmount, dateOfChange, idProduct,  idUser);
 
                 listCarts.add(currentOrder);
             }
@@ -87,5 +89,82 @@ public class CartDB implements CartInterfaceDB{
             throw new RuntimeException(e);
         }
         return listCarts;
+    }
+
+    @Override
+    public boolean createCart(String mail) {
+
+        String query = "INSERT INTO `Cart` (`idCart`, `User`) VALUES (?)";
+
+        // construction et exécution d'une requête préparée
+        try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
+            ps.setString(1, null);
+            ps.setString(2, mail);
+
+            // exécution de la requête
+            ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean deleteCart(int idCart) {
+
+        String query = "DELETE FROM `Cart` WHERE idCart=?";
+
+        // construction et exécution d'une requête préparée
+        try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
+            // exécution de la requête
+            ps.setInt(1, idCart);
+            ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean addProduct(int idCart, Product product) {
+
+        String query = "INSERT INTO `Cart` (`Product`) VALUES (?) WHERE idCart=?";
+
+        // construction et exécution d'une requête préparée
+        try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
+            ps.setString(1,product.getName());
+            ps.setInt(2,idCart);
+
+            // exécution de la requête
+            ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean removeProduct(int idCart, Product product) {
+
+        String query = "ALTER TABLE `Cart` DROP (`Product`) WHERE idCart=? AND Product=?";
+
+        // construction et exécution d'une requête préparée
+        try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
+            ps.setInt(1,idCart);
+            ps.setString(2,product.getName());
+
+            // exécution de la requête
+            ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
     }
 }

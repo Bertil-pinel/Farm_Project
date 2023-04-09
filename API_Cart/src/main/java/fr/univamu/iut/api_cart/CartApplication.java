@@ -21,7 +21,7 @@ public class CartApplication extends Application {
         CartDB db = null;
 
         try{
-            db = new CartDB("jdbc:mariadb://mysql-delesvaux.alwaysdata.net/delesvaux_cart", "delesvaux_cartus", "Cartus1234");
+            db = new CartDB("jdbc:mariadb://mysql-monterin.alwaysdata.net/monterin_panier_db", "monterin_panier", "mdp.2003");
         }
         catch (Exception e){
             System.err.println(e.getMessage());

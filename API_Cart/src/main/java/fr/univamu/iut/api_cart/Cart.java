@@ -1,47 +1,40 @@
 package fr.univamu.iut.api_cart;
 
-import java.util.Date;
-
 /**
- * Classe représantant une Commande
+ * Classe représantant un panier
  */
 public class Cart {
 
 
     /**
-     * Prix de la commande
+     * Id du panier
      */
     protected int idCart;
 
     /**
-     * Localisation point de relais
+     * Somme total du panier
      */
-    protected int amountItem;
+    protected int totalAmount;
 
     /**
-     * Date de retrait
+     * Date de modification du panier
      */
-    protected String  modifDate;
+    protected String dateOfChange;
 
     /**
-     * Référence de la commande
+     * Id d'un produit du panier
      */
     protected String idProduct;
 
     /**
-     * Prix de la commande
+     * Id de l'utilisateur créant le panier
      */
     protected String idUser;
 
-    /**
-     *
-     */
-    public Cart(){}
-
-    public Cart(int idCart, int amountItem, String modifDate, String idProduct, String idUser) {
+    public Cart(int idCart, int totalAmount, String dateOfChange, String idProduct, String idUser) {
         this.idCart = idCart;
-        this.amountItem = amountItem;
-        this.modifDate = modifDate;
+        this.totalAmount = totalAmount;
+        this.dateOfChange = dateOfChange;
         this.idProduct = idProduct;
         this.idUser = idUser;
     }
@@ -58,24 +51,24 @@ public class Cart {
         this.idCart = idCart;
     }
 
-    public void setAmountItem(int amountItem) {
-        this.amountItem = amountItem;
+    public void setTotalAmount(int totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
-    public void setModifDate(String modifDate) {
-        this.modifDate = modifDate;
+    public void setDateOfChange(String dateOfChange) {
+        this.dateOfChange = dateOfChange;
     }
 
     public int getIdCart() {
         return idCart;
     }
 
-    public int getAmountItem() {
-        return amountItem;
+    public int getTotalAmount() {
+        return totalAmount;
     }
 
-    public String getModifDate() {
-        return modifDate;
+    public String getDateOfChange() {
+        return dateOfChange;
     }
 
     public String getIdProduct() {
@@ -84,5 +77,16 @@ public class Cart {
 
     public String getIdUser() {
         return idUser;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "idCart=" + idCart +
+                ", totalAmount=" + totalAmount +
+                ", dateOfChange='" + dateOfChange + '\'' +
+                ", idProduct='" + idProduct + '\'' +
+                ", idUser='" + idUser + '\'' +
+                '}';
     }
 }

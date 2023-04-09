@@ -1,22 +1,30 @@
 package fr.univamu.iut.api_cart;
 
+import fr.univamu.iut.api_cart.UserNProduct.Product;
+import fr.univamu.iut.api_cart.UserNProduct.UsAndProDBInterface;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
+import jakarta.ws.rs.NotFoundException;
+
 import java.util.ArrayList;
 
 /**
  * Classe utilisée pour récupérer les informations nécessaires à la ressource
- * (permet de dissocier ressource et mode d'éccès aux données)
+ * (permet de dissocier ressource et mode d'accès aux données)
  */
 public class CartService {
 
     /**
-     * Objet permettant d'accéder au dépôt où sont stockées les informations sur les livres
+     * Objet permettant d'accéder au dépôt où sont stockées les informations sur les Users, les Products et les Carts
      */
     protected CartInterfaceDB cartRepo ;
+    protected UsAndProDBInterface usAndProRepo;
 
-    public CartService(CartInterfaceDB cartRepo) {
+    protected boolean result = false;
+
+    public CartService(CartInterfaceDB cartRepo, UsAndProDBInterface usAndProRepo) {
         this.cartRepo = cartRepo;
+        this.usAndProRepo = usAndProRepo;
     }
 
     /**
@@ -59,6 +67,62 @@ public class CartService {
             }
         }
         return result;
+    }
+
+    /**
+     * Méthode qui créer un panier
+     * @return un boolean pour vérifier la réussite de la fonction
+     */
+    public boolean createCart( String mail ){
+
+        if(usAndProRepo.getUser(mail) == null ){
+            throw new NotFoundException("User not exists");
+        }else{
+            this.result = cartRepo.createCart(mail);
+        }
+        return this.result;
+    }
+
+    /**
+     * Méthode qui supprime un panier
+     * @return un boolean pour vérifier la réussite de la fonction
+     */
+    public boolean deleteCart(int idCart){
+
+        if(cartRepo.getCart(idCart) == null ){
+            throw new NotFoundException("Cart not exists");
+        }else{
+            this.result = cartRepo.deleteCart(idCart);
+        }
+        return this.result;
+    }
+
+    /**
+     * Méthode qui ajoute un produit dans un panier
+     * @return un boolean pour vérifier la réussite de la fonction
+     */
+    public boolean addProduct(int idCart, Product product ){
+
+        if(cartRepo.getCart(idCart) == null){
+            throw new NotFoundException("Cart not exists");
+        }else{
+            this.result = cartRepo.addProduct(idCart, product);
+        }
+        return this.result;
+    }
+
+    /**
+     * Méthode qui supprime un produit dans un panier
+     * @return un boolean pour vérifier la réussite de la fonction
+     */
+    public boolean removeProduct(int idCart, Product product){
+
+        if(cartRepo.getCart(idCart) == null){
+            throw new NotFoundException("Cart not exists");
+        }else{
+            this.result = cartRepo.removeProduct(idCart, product);
+        }
+        return this.result;
     }
 
 }
