@@ -44,4 +44,28 @@ class apiProduct implements ProductsAccessInterface
         return $products;
     }
 
+    public function getProduct($name){
+
+        $url = "http://localhost:8080/API_User-Product-1.0-SNAPSHOT/api/products" + $name;
+
+        $curlConnection  = curl_init();
+
+        $response = curl_exec($curlConnection);
+        curl_close($curlConnection);
+
+        if( !$response )
+            echo curl_error($curlConnection);
+
+        $response = json_decode( $response, true );
+
+
+            $name = $response['name'];
+            $costPerKilos = $response['costPerKilos'];
+            $itemCost = $response['itemCost'];
+            $category= $response['category'];
+            $disponibility = $response['disponibility'];
+
+        return new Product($name, $costPerKilos, $itemCost, $category, $disponibility);
+    }
+
 }

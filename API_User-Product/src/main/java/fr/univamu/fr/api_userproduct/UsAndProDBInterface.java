@@ -36,7 +36,6 @@ public interface UsAndProDBInterface {
      * @param username
      * @param mail
      * @param password
-     * @param dateOfCreation
      * @return True if creation succedeed
      */
     public boolean createUser(String username, String mail, String password);
