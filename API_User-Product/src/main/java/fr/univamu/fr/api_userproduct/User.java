@@ -47,9 +47,6 @@ public class User {
         this.password = password;
     }
 
-    public void setDateOfCreation(String dateOfCreation) {
-        this.dateOfCreation = dateOfCreation;
-    }
 
     @Override
     public String toString() {
@@ -57,7 +54,7 @@ public class User {
                 "username='" + username + '\'' +
                 ", mail='" + mail + '\'' +
                 ", password='" + password + '\'' +
-                ", dateOfCreation=" + dateOfCreation +
-                '}';
+                ", dateOfCreation='" + dateOfCreation +
+                "'}";
     }
 }
