@@ -4,17 +4,30 @@ import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import java.util.ArrayList;
 
+/**
+ * Classe utilisée pour récupérer les informations nécessaires à la ressource
+ * (permet de dissocier ressource et mode d'éccès aux données)
+ */
 public class UserService {
 
+    /**
+     * Objet permettant d'accéder au dépôt où sont stockées les informations sur les commandes
+     */
     protected UsAndProDBInterface UserRepositoryDB ;
 
-
+    /**
+     * Constructeur
+     * @param UserRepositoryDB
+     */
     public  UserService( UsAndProDBInterface UserRepositoryDB) {
         this.UserRepositoryDB = UserRepositoryDB;
     }
 
 
-
+    /**
+     * Méthode retournant tout les utilisateurs sous format JSON
+     * @return String
+     */
     public String getAllUsersJSON(){
 
         ArrayList<User> allUsers = UserRepositoryDB.getAllUsers();
@@ -30,6 +43,10 @@ public class UserService {
         return result;
     }
 
+    /**
+     * Méthode retournant l'utilisateur possédant cet email sous format JSON
+     * @return String
+     */
     public String getUserJSON( String mail ){
         String result = null;
         User myUser = UserRepositoryDB.getUser(mail);
@@ -45,6 +62,11 @@ public class UserService {
         return result;
     }
 
+    /**
+     * Méthode retournant tout les produits sous format JSON
+     * @return String
+     */
+
     public String getAllProductsJSON(){
 
         ArrayList<Product> allProducts = UserRepositoryDB.getAllProducts();
@@ -59,6 +81,10 @@ public class UserService {
 
         return result;
     }
+    /**
+     * Méthode retournant le produit portant ce nom sous format JSON
+     * @return String
+     */
 
     public String getProdcutJSON( String name ){
         String result = null;

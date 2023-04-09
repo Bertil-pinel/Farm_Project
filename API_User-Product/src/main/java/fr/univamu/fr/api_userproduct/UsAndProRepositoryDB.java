@@ -4,7 +4,7 @@ import java.io.Closeable;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class UsAndRepoRepositoryDB implements UsAndProDBInterface, Closeable {
+public class UsAndProRepositoryDB implements UsAndProDBInterface, Closeable {
 
     /**
      * Session accesing the data
@@ -18,11 +18,14 @@ public class UsAndRepoRepositoryDB implements UsAndProDBInterface, Closeable {
      * @param user Identifier to connect to mysql
      * @param pwd password to connect to mysql
      */
-    public UsAndRepoRepositoryDB(String infoConnection, String user, String pwd ) throws java.sql.SQLException, java.lang.ClassNotFoundException {
+    public UsAndProRepositoryDB(String infoConnection, String user, String pwd ) throws java.sql.SQLException, java.lang.ClassNotFoundException {
         Class.forName("org.mariadb.jdbc.Driver");
         dbConnection = DriverManager.getConnection( infoConnection, user, pwd ) ;
     }
 
+    /**
+     * Closing connection with database
+     */
     @Override
     public void close() {
         try{
@@ -32,6 +35,12 @@ public class UsAndRepoRepositoryDB implements UsAndProDBInterface, Closeable {
             System.err.println(e.getMessage());
         }
     }
+
+    /**
+     * Return the product according to the name specified in parameters
+     * @param name
+     * @return
+     */
 
     @Override
     public Product getProduct(String name) {
@@ -62,6 +71,11 @@ public class UsAndRepoRepositoryDB implements UsAndProDBInterface, Closeable {
         }
         return selectedProduct;
     }
+
+    /**
+     * Return a list of all the products present in the database
+     * @return
+     */
 
     @Override
     public ArrayList<Product> getAllProducts() {
@@ -96,6 +110,11 @@ public class UsAndRepoRepositoryDB implements UsAndProDBInterface, Closeable {
         return listProducts;
     }
 
+    /**
+     * Return the User that Wears this email
+     * @param Mail Id of the wanted User
+     * @return
+     */
 
     @Override
     public User getUser(String Mail) {
@@ -127,6 +146,10 @@ public class UsAndRepoRepositoryDB implements UsAndProDBInterface, Closeable {
         return selectedUser;
     }
 
+    /**
+     * Return all the users present in the database
+     * @return
+     */
     @Override
     public ArrayList<User> getAllUsers() {
         ArrayList<User> listUsers ;
