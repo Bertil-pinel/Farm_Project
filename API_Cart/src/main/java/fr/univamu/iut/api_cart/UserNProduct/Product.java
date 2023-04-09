@@ -1,14 +1,44 @@
 package fr.univamu.iut.api_cart.UserNProduct;
 
+/**
+ * Classe représentant les produits
+ */
+
 public class Product {
 
+    /**
+     * Nom du produit
+     */
     protected String name;
 
+    /**
+     * Le prix au kilos du produit
+     */
     protected float costPerKilos;
+
+    /**
+     * Le prix du produit
+     */
     protected float itemCost;
+
+    /**
+     * La catégorie du produit
+     */
     protected Category category;
+
+    /**
+     * la disponibilité du produit (en stock ou non)
+     */
     protected int disponibility;
 
+    /**
+     * Constructeur du produit
+     * @param name String Nom du produit
+     * @param costPerKilos prix au kilos du produit
+     * @param itemCost prix du produit
+     * @param category catégorie du produit
+     * @param disponibility disponibilité du produit (en stock ou non)
+     */
     public Product(String name, float costPerKilos, float itemCost, Category category, int disponibility) {
         this.name = name;
         this.costPerKilos = costPerKilos;
@@ -17,44 +47,20 @@ public class Product {
         this.disponibility = disponibility;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCostPerKilos(float costPerKilos) {
-        this.costPerKilos = costPerKilos;
-    }
-
-    public void setItemCost(float itemCost) {
-        this.itemCost = itemCost;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public void setDisponibility(int disponibility) {
-        this.disponibility = disponibility;
-    }
-
+    /**
+     * Méthode permettant d'accéder au nom du produit
+     * @return le nom du produit
+     */
     public String getName() {
         return name;
     }
 
-    public float getCostPerKilos() {
-        return costPerKilos;
-    }
-
+    /**
+     * Méthode permettant d'accéder au prix du produit
+     * @return le prix du produit
+     */
     public float getItemCost() {
         return itemCost;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public int getDisponibility() {
-        return disponibility;
     }
 
     @Override

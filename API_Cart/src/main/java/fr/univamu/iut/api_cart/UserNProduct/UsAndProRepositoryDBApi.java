@@ -9,6 +9,10 @@ import jakarta.ws.rs.core.Response;
 import java.io.Closeable;
 import java.util.ArrayList;
 
+/**
+ * APi de User&Product
+ */
+
 public class UsAndProRepositoryDBApi implements UsAndProDBInterface, Closeable {
 
     /**
@@ -30,6 +34,11 @@ public class UsAndProRepositoryDBApi implements UsAndProDBInterface, Closeable {
     @Override
     public void close() {}
 
+    /**
+     * Méthode permettant d'obtenir un produit
+     * @param idProduct String visant le produit souhaité
+     * @return le produit souhaité
+     */
     @Override
     public Product getProduct(String idProduct) {
 
@@ -57,6 +66,10 @@ public class UsAndProRepositoryDBApi implements UsAndProDBInterface, Closeable {
 
     }
 
+    /**
+     * Méthode permettant d'obtenir tous les produits stockés dans la BDD
+     * @return la liste de tous les produits stockés dans la BDD
+     */
     @Override
     public ArrayList<Product> getAllProducts() {
 
@@ -84,7 +97,11 @@ public class UsAndProRepositoryDBApi implements UsAndProDBInterface, Closeable {
         return myProducts;
     }
 
-
+    /**
+     * Méthode permettant d'obtenir un utilisateur
+     * @param Mail Mail visant l'utilisateur souhaité
+     * @return l'utilisateur souhaité
+     */
     @Override
     public User getUser(String Mail) {
 
@@ -112,6 +129,10 @@ public class UsAndProRepositoryDBApi implements UsAndProDBInterface, Closeable {
         return myUser;
     }
 
+    /**
+     * Méthode permettant d'obtenir tous les utilisateurs stockés dans la BDD
+     * @return la liste de tous les utilisateurs stockés dans la BDD
+     */
     @Override
     public ArrayList<User> getAllUsers() {
 

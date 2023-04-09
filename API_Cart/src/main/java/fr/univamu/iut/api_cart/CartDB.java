@@ -8,6 +8,12 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+/**
+ * Classe intéragissant vec la BDD Cart
+ *
+ */
+
 public class CartDB implements CartInterfaceDB{
 
     /**

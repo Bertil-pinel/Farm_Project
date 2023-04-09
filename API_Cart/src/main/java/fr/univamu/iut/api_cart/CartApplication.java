@@ -6,6 +6,11 @@ import jakarta.enterprise.inject.Produces;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
+
+/**
+ * Classe principale de l'API Cart
+ */
+
 @ApplicationPath("/api")
 @ApplicationScoped
 public class CartApplication extends Application {

@@ -8,6 +8,10 @@ import jakarta.ws.rs.*;
 
 import jakarta.ws.rs.core.Response;
 
+/**
+ * Classe permettant d'accéder au différentes fonctionnalités de l'api via l'url
+ */
+
 @Path("/carts")
 @ApplicationScoped
 public class CartResource {

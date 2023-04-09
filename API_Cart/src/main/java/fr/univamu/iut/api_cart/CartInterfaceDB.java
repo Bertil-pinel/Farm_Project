@@ -5,7 +5,7 @@ import fr.univamu.iut.api_cart.UserNProduct.Product;
 import java.util.ArrayList;
 
 /**
- *
+ * Interface créant les méthodes pour la classe CartDB
  */
 public interface CartInterfaceDB {
 
