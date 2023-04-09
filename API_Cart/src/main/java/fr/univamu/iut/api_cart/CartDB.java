@@ -138,19 +138,22 @@ public class CartDB implements CartInterfaceDB{
 
         String dateDB = dateFormat.format(dateCurrent);
 
-        String query = "INSERT INTO `Cart` (`Product`, `DateOfChange`) VALUES (?, ?) WHERE idCart=?";
+        int totalAmount = (int) (cart.getTotalAmount() - product.getItemCost());
+
+        String query = "INSERT INTO `Cart` (`Product`, `DateOfChange`, `TotalAmount`) VALUES (?, ?, ?) WHERE idCart=?";
 
         // construction et exécution d'une requête préparée
         try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
             ps.setString(1,product.getName());
             ps.setString(2,dateDB);
-            ps.setInt(3,cart.getIdCart());
+            ps.setInt(3,totalAmount);
+            ps.setInt(4,cart.getIdCart());
 
             // exécution de la requête
             ps.executeQuery();
 
             // update du montant du panier
-            cart.setTotalAmount((int) (cart.getTotalAmount() + product.getItemCost()));
+            cart.setTotalAmount(totalAmount);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -173,13 +176,14 @@ public class CartDB implements CartInterfaceDB{
 
         // construction et exécution d'une requête préparée
         try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
-            // update du montant du panier
-            cart.setTotalAmount(totalAmount);
             ps.setInt(1,cart.getIdCart());
             ps.setString(2,product.getName());
 
             // exécution de la requête
             ps.executeQuery();
+
+            // update du montant du panier
+            cart.setTotalAmount(totalAmount);
 
 
             query = "INSERT INTO `Cart` (`DateOfChange`, `TotalAmount`) VALUES (?, ?) WHERE idCart=?";
