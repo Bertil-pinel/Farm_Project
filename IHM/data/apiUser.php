@@ -29,8 +29,6 @@ class apiUser implements UsersAccessInterface
 
         $users = array();
         foreach ( $response as $user){
-
-
             $username = $user['username'];
             $mail = $user['mail'];
             $password = $user['password'];
@@ -44,27 +42,28 @@ class apiUser implements UsersAccessInterface
         return $users;
     }
 
-    public function getPost($mail){
+    public function getUser($login){
 
-        $apiUrl = "http://localhost:8080/API_User-Product-1.0-SNAPSHOT/api/users/" + $mail;
+        $apiUrl="http://localhost:8080/API_User-Product-1.0-SNAPSHOT/api/users/" . (string) $login;
 
-        $curlConnection  = curl_init();
+        $curlConnection  = curl_init($apiUrl);
 
         $response = curl_exec($curlConnection);
-        curl_close($curlConnection);
 
         if( !$response )
             echo curl_error($curlConnection);
 
+        curl_close($curlConnection);
+
         $response = json_decode( $response, true );
 
-        $username = $response['username'];
-        $mail = $response['mail'];
-        $password = $response['password'];
-        $dateOfCreation = $response['dateOfCreation'];
+
+        $username = isset($response['username']) ? $response['username'] : 0;
+        $password = isset($response['password']) ? $response['password'] : 0;
+        $dateOfCreation = isset($response['dateOfCreation']) ? $response['dateOfCreation'] : 0;
 
 
-        return new User($username, $mail, $password, $dateOfCreation);
+        return new User($username, $login, $password, $dateOfCreation);
 
     }
 

@@ -6,9 +6,12 @@ class AppChecking
     protected $productsTxt;
     protected $UsersTxt;
 
-    public function getproductsTxt()
+    public function getProductTxt($data, $name)
     {
-        return $this->productsTxt;
+        $product = $data->getProduct($name);
+
+        $this->productsTxt[] = ['name' => $product->getName(), 'costPerKilos' => $product->getCostPerKilos(),'itemCost' => $product->getItemCost(),'category' => $product->getCategory(), 'disponibility' => $product->getDisponibility()];
+
     }
 
     public function getAllProducts($data)
@@ -34,5 +37,10 @@ class AppChecking
         foreach ($Users as $user) {
             $this->UsersTxt[] = ['username' => $user->getUsername(), 'mail' => $user->getMail(),'password' => $user->getPassword(),'dateOfCreation' => $user->getDateOfCreation()];
         }
+    }
+
+    public function authenticate($login,$password,$data){
+        $User = $data->getUser($login);
+        return $User->getPassword()==$password;
     }
 }

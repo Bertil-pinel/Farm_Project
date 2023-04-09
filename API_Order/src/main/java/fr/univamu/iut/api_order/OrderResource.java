@@ -39,7 +39,7 @@ public class OrderResource {
     }
 
     /**
-     * Enpoint permettant de récupérer toutes les Commandes enregistrés
+     * Endpoint permettant de récupérer toutes les Commandes enregistrés
      * @return la liste des commandes (avec leurs informations) au format JSON
      */
     @GET

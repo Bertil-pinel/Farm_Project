@@ -6,17 +6,27 @@ import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
 
+/**
+ * Classe principale de l'API User and Product
+ */
+
 @ApplicationPath("/api")
 @ApplicationScoped
 public class UsAndProApplication extends Application {
 
+    /**
+     * Méthode appelée par l'API CDI pour injecter la connection à la base de données au moment de la création
+     * de la ressource
+     * @return un objet implémentant l'interface UsAndProRepositoryInterface utilisée
+     *          pour accéder aux données des produits et utilisateurs.
+     */
 
     @Produces
     private UsAndProDBInterface openDbConnection(){
-        UsAndRepoRepositoryDB db = null;
+        UsAndProRepositoryDB db = null;
 
         try{
-            db = new UsAndRepoRepositoryDB("jdbc:mariadb://mysql-pinel-guinard.alwaysdata.net/pinel-guinard_user-products", "295723_user", "bertil123");
+            db = new UsAndProRepositoryDB("jdbc:mariadb://mysql-pinel-guinard.alwaysdata.net/pinel-guinard_user-products", "295723_user", "bertil123");
         }
         catch (Exception e){
             System.err.println(e.getMessage());
@@ -25,7 +35,11 @@ public class UsAndProApplication extends Application {
     }
 
 
-    private void closeDbConnection(@Disposes UsAndProDBInterface User ) {
-        User.close();
+    /**
+     * Méthode permettant de fermer la connexion à la base de données lorsque l'application est arrêtée
+     * @param UsProRepo la connexion à la base de données instanciée dans la méthode @openDbConnection
+     */
+    private void closeDbConnection(@Disposes UsAndProDBInterface UsProRepo ) {
+        UsProRepo.close();
     }
 }
