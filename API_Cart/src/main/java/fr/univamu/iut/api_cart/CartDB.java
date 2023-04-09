@@ -4,6 +4,8 @@ import fr.univamu.iut.api_cart.UserNProduct.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CartDB implements CartInterfaceDB{
@@ -131,12 +133,18 @@ public class CartDB implements CartInterfaceDB{
     @Override
     public boolean addProduct(int idCart, Product product) {
 
-        String query = "INSERT INTO `Cart` (`Product`) VALUES (?) WHERE idCart=?";
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date dateCurrent = new Date();
+
+        String dateDB = dateFormat.format(dateCurrent);
+
+        String query = "INSERT INTO `Cart` (`Product`) VALUES (?, ?) WHERE idCart=?";
 
         // construction et exécution d'une requête préparée
         try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
             ps.setString(1,product.getName());
-            ps.setInt(2,idCart);
+            ps.setString(2,dateDB);
+            ps.setInt(3,idCart);
 
             // exécution de la requête
             ps.executeQuery();
@@ -151,12 +159,30 @@ public class CartDB implements CartInterfaceDB{
     @Override
     public boolean removeProduct(int idCart, Product product) {
 
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date dateCurrent = new Date();
+
+        String dateDB = dateFormat.format(dateCurrent);
+
         String query = "ALTER TABLE `Cart` DROP (`Product`) WHERE idCart=? AND Product=?";
 
         // construction et exécution d'une requête préparée
         try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
             ps.setInt(1,idCart);
             ps.setString(2,product.getName());
+
+            // exécution de la requête
+            ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        query = "INSERT INTO `Cart` (`Date`) VALUES (?) WHERE idCart=?";
+
+        // construction et exécution d'une requête préparée
+        try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
+            ps.setString(1,dateDB);
 
             // exécution de la requête
             ps.executeQuery();
