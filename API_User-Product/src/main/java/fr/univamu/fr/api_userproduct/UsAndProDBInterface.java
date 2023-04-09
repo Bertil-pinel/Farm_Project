@@ -31,4 +31,15 @@ public interface UsAndProDBInterface {
 
     public ArrayList<Product> getAllProducts();
 
+    /**
+     * Creates a new User
+     * @param username
+     * @param mail
+     * @param password
+     * @param dateOfCreation
+     * @return True if creation succedeed
+     */
+    public boolean createUser(String username, String mail, String password);
+
+
 }

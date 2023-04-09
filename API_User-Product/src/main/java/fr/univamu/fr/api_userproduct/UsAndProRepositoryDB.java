@@ -2,6 +2,8 @@ package fr.univamu.fr.api_userproduct;
 
 import java.io.Closeable;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class UsAndProRepositoryDB implements UsAndProDBInterface, Closeable {
@@ -108,6 +110,37 @@ public class UsAndProRepositoryDB implements UsAndProDBInterface, Closeable {
             throw new RuntimeException(e);
         }
         return listProducts;
+    }
+
+    /**
+     * Creates a new user in the database
+     * @param username
+     * @param mail
+     * @param password
+     * @return
+     */
+
+    @Override
+    public boolean createUser(String username, String mail, String password) {
+        String query = "INSERT INTO `User` (`username`, `mail`, `password`, `dateOfCreation`) VALUES (?,?,?,?)";
+
+        LocalDate dateObj = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String dateOfCreation = dateObj.format(formatter);
+        // construction et exécution d'une requête préparée
+        try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
+            ps.setString(1,username);
+            ps.setString(2,mail);
+            ps.setString(3,password);
+            ps.setString(4,dateOfCreation);
+
+            // exécution de la requête
+            ps.executeQuery();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
     }
 
     /**

@@ -33,5 +33,17 @@ public class UsAndProDBTest {
         }
     }
 
+    @Test
+    public void createUserTest(){
+        try {
+            UsAndProRepositoryDB userDB = new UsAndProRepositoryDB("jdbc:mariadb://mysql-pinel-guinard.alwaysdata.net/pinel-guinard_user-products", "295723_user", "bertil123");
+            assertEquals(userDB.createUser("Salomon","salomon@mail","secret"), true);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

@@ -2,6 +2,8 @@ package fr.univamu.fr.api_userproduct;
 
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
+import jakarta.ws.rs.NotFoundException;
+
 import java.util.ArrayList;
 
 /**
@@ -98,6 +100,22 @@ public class UserService {
                 System.err.println(e.getMessage());
             }
         }
+        return result;
+    }
+
+
+    /**
+     * Create a new User
+     * @param username
+     * @param mail
+     * @param password
+     * @return
+     */
+    public boolean createUser(String username, String mail, String password){
+        boolean result = false;
+
+        result = UserRepositoryDB.createUser(username,mail,password);
+
         return result;
     }
 }

@@ -3,6 +3,7 @@ package fr.univamu.fr.api_userproduct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
 
 /**
  * Classe permettant d'accéder au différentes fonctionnalités de l'api via l'url
@@ -66,6 +67,23 @@ public class UserResource {
             throw new NotFoundException();
 
         return result;
+    }
+
+    /**
+     * Endpoint permettant de créer Un utilisateur
+     * @param idCart référence de du panier à utilisé
+     * @param relayPlace adresse du relai de livraison
+     * @param orderDate date de la commande
+     * @return La réponse à la réussite de la fonction
+     */
+    @POST
+    @Consumes("application/x-www-form-urlencoded")
+    public Response registerOrder(@FormParam("username") String username, @FormParam("mail") String mail, @FormParam("password") String password){
+        if( service.createUser(username,mail, password))
+            return Response.ok("registred").build();
+        else
+            return Response.status( Response.Status.CONFLICT ).build();
+
     }
 
 }
