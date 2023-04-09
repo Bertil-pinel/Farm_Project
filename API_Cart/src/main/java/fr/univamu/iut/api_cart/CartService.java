@@ -101,12 +101,12 @@ public class CartService {
      * Méthode qui ajoute un produit dans un panier
      * @return un boolean pour vérifier la réussite de la fonction
      */
-    public boolean addProduct(int idCart, Product product ){
+    public boolean addProduct(Cart cart, Product product ){
 
-        if(cartRepo.getCart(idCart) == null){
+        if(cartRepo.getCart(cart.getIdCart()) == null){
             throw new NotFoundException("Cart not exists");
         }else{
-            this.result = cartRepo.addProduct(idCart, product);
+            this.result = cartRepo.addProduct(cart, product);
         }
         return this.result;
     }
@@ -115,12 +115,12 @@ public class CartService {
      * Méthode qui supprime un produit dans un panier
      * @return un boolean pour vérifier la réussite de la fonction
      */
-    public boolean removeProduct(int idCart, Product product){
+    public boolean removeProduct(Cart cart, Product product){
 
-        if(cartRepo.getCart(idCart) == null){
+        if(cartRepo.getCart(cart.getIdCart()) == null){
             throw new NotFoundException("Cart not exists");
         }else{
-            this.result = cartRepo.removeProduct(idCart, product);
+            this.result = cartRepo.removeProduct(cart, product);
         }
         return this.result;
     }

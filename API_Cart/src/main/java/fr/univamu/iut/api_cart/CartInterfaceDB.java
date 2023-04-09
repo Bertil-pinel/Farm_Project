@@ -31,8 +31,8 @@ public interface CartInterfaceDB {
 
     boolean deleteCart(int idCart);
 
-    boolean addProduct(int idCart, Product product);
+    boolean addProduct(Cart cart, Product product);
 
-    boolean removeProduct(int idCart, Product product);
+    boolean removeProduct(Cart cart, Product product);
 
 }

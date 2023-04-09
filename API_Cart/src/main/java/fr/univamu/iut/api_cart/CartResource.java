@@ -78,10 +78,10 @@ public class CartResource {
     @PUT
     @Path("{idCart}")
     @Consumes("application/json")
-    public Response updateCart(@PathParam("idCart") int idCart, Product product){
+    public Response updateCart(@PathParam("idCart") int idCart, Product product, Cart cart){
 
         // si le livre n'a pas été trouvé
-        if(!service.addProduct(idCart, product) ||  !service.removeProduct(idCart, product))
+        if(!service.addProduct(cart, product) ||  !service.removeProduct(cart, product))
             throw new NotFoundException("Cart not updated yet");
         else
             return Response.ok("updated").build();

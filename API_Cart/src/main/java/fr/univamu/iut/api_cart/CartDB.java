@@ -131,7 +131,7 @@ public class CartDB implements CartInterfaceDB{
     }
 
     @Override
-    public boolean addProduct(int idCart, Product product) {
+    public boolean addProduct(Cart cart, Product product) {
 
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date dateCurrent = new Date();
@@ -144,10 +144,13 @@ public class CartDB implements CartInterfaceDB{
         try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
             ps.setString(1,product.getName());
             ps.setString(2,dateDB);
-            ps.setInt(3,idCart);
+            ps.setInt(3,cart.getIdCart());
 
             // exécution de la requête
             ps.executeQuery();
+
+            // update du montant du panier
+            cart.setTotalAmount((int) (cart.getTotalAmount() + product.getItemCost()));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -157,7 +160,7 @@ public class CartDB implements CartInterfaceDB{
     }
 
     @Override
-    public boolean removeProduct(int idCart, Product product) {
+    public boolean removeProduct(Cart cart, Product product) {
 
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date dateCurrent = new Date();
@@ -168,11 +171,14 @@ public class CartDB implements CartInterfaceDB{
 
         // construction et exécution d'une requête préparée
         try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
-            ps.setInt(1,idCart);
+            ps.setInt(1,cart.getIdCart());
             ps.setString(2,product.getName());
 
             // exécution de la requête
             ps.executeQuery();
+
+            // update du montant du panier
+            cart.setTotalAmount((int) (cart.getTotalAmount() - product.getItemCost()));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -183,6 +189,7 @@ public class CartDB implements CartInterfaceDB{
         // construction et exécution d'une requête préparée
         try ( PreparedStatement ps = dbConnection.prepareStatement(query) ){
             ps.setString(1,dateDB);
+            ps.setInt(2, cart.getIdCart());
 
             // exécution de la requête
             ps.executeQuery();
